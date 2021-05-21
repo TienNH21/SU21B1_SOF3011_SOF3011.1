@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.User;
+
 @WebServlet("/dang-ky")
 public class DangKyServlet extends HttpServlet {
 	protected void doGet(
@@ -27,6 +29,10 @@ public class DangKyServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String genderStr = request.getParameter("gender");
 		String[] hobbies = request.getParameterValues("hobbies");
+		
+		User user = new User();
+		
+//		user.setName(name);
 		
 		int gender = 1;
 		try {

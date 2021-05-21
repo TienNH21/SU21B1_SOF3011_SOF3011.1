@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.User;
+
 @WebServlet("/login")
 public class HelloServlet extends HttpServlet {
     public HelloServlet() {
@@ -20,6 +22,7 @@ public class HelloServlet extends HttpServlet {
 	) throws ServletException, IOException {
     	// Ghi log
 
+    	System.out.println("HelloServlet@service()");
     	super.service(request, response);
     }
 
@@ -36,6 +39,7 @@ public class HelloServlet extends HttpServlet {
 
 		String name = username == null ? "SOF3011.1" : username;
 		request.setAttribute("myName", name);
+		request.getContextPath();
 		
 		request.getRequestDispatcher("/views/welcome.jsp")
 			.forward(request, response);
@@ -45,7 +49,19 @@ public class HelloServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		System.out.println(username + "---" + password);
+		
+		User user = new User();
+		user.setName( request.getParameter("name") );
 		doGet(request, response);
 	}
 
+	public void init()
+	{
+		System.out.println("HelloServlet@init");
+	}
+	
+	public void destroy()
+	{
+		System.out.println("HelloServlet@destroy");
+	}
 }

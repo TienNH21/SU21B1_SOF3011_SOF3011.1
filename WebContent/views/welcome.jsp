@@ -9,10 +9,10 @@
 <body>
 	<h1>Hello ${ myName }</h1>
 	
-	<form action="/SOF3011.1/hello-servlet" method="POST">
+	<form action="${ pageContext.request.contextPath }/hello-servlet" method="POST">
 		<input type="text" name="username" />
 		<input type="password" name="password" />
-		
+		${ param.username }
 		<button>Submit</button>
 	</form>
 </body>
