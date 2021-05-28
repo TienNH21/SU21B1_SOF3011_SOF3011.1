@@ -8,7 +8,9 @@
 </head>
 <body>
 	<h1>Hello ${ myName }</h1>
-	
+	<jsp:include page="sub_page.jsp">
+		<jsp:param value="${ myName }" name="data"/>
+	</jsp:include>
 	<form action="${ pageContext.request.contextPath }/hello-servlet" method="POST">
 		<input type="text" name="username" />
 		<input type="password" name="password" />

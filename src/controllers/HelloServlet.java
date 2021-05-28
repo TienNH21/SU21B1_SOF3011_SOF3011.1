@@ -50,8 +50,8 @@ public class HelloServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		System.out.println(username + "---" + password);
 		
-		User user = new User();
-		user.setName( request.getParameter("name") );
+//		User user = new User();
+//		user.setName( request.getParameter("name") );
 		doGet(request, response);
 	}
 

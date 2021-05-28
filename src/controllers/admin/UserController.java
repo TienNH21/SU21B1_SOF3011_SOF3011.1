@@ -39,16 +39,16 @@ public class UserController extends HttpServlet{
 			}
 			
 			case "/edit": {
-				// edit
+				this.edit(request, response);
 				break;
 			}
 			
 			case "/show": {
-				// show
+				this.show(request, response);
 				break;
 			}
 			default:
-				// index
+				this.index(request, response);
 		}
 		System.out.println("URI:" + uriPath);
 	}
@@ -67,12 +67,40 @@ public class UserController extends HttpServlet{
 			default:
 		}
 	}
+	
+	private void index(
+		HttpServletRequest request,
+		HttpServletResponse response
+	) throws ServletException, IOException {
+		request.setAttribute("view", "/views/admin/users/index.jsp");
+		request.getRequestDispatcher("/views/layout.jsp")
+		.forward(request, response);
+	}
 
 	private void create(
 		HttpServletRequest request,
 		HttpServletResponse response
 	) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/admin/users/create.jsp")
+		request.setAttribute("view", "/views/admin/users/create.jsp");
+		request.getRequestDispatcher("/views/layout.jsp")
+		.forward(request, response);
+	}
+
+	private void edit(
+		HttpServletRequest request,
+		HttpServletResponse response
+	) throws ServletException, IOException {
+		request.setAttribute("view", "/views/admin/users/edit.jsp");
+		request.getRequestDispatcher("/views/layout.jsp")
+		.forward(request, response);
+	}
+
+	private void show(
+		HttpServletRequest request,
+		HttpServletResponse response
+	) throws ServletException, IOException {
+		request.setAttribute("view", "/views/admin/users/show.jsp");
+		request.getRequestDispatcher("/views/layout.jsp")
 		.forward(request, response);
 	}
 	
