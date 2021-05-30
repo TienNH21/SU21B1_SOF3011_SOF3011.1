@@ -2,14 +2,20 @@ package controllers;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import entity.User;
 
-@WebServlet("/login")
+@MultipartConfig()
+@WebServlet({
+	"/login",
+	"/hello-upload"
+})
 public class HelloServlet extends HttpServlet {
     public HelloServlet() {
         super();
@@ -22,6 +28,7 @@ public class HelloServlet extends HttpServlet {
 	) throws ServletException, IOException {
     	// Ghi log
 
+//    	/Users/tiennh/eclipse-workspace/SOF3011.1/WebContent/storages
     	System.out.println("HelloServlet@service()");
     	super.service(request, response);
     }
@@ -46,12 +53,30 @@ public class HelloServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		System.out.println(username + "---" + password);
+
+		if (request.getRequestURI().contains("hello-upload")) {
+			this.upload(request, response);
+		} else {
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			System.out.println(username + "---" + password);
+
+			doGet(request, response);
+		}
+	}
+	
+	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		String storagePath = "/Users/tiennh/eclipse-workspace/SOF3011.1/WebContent/storages/";
+		try {
+			Part uploadedFile = request.getPart("upload_file");
+			
+			String savedFilePath = storagePath + uploadedFile.getSubmittedFileName();
+			uploadedFile.write(savedFilePath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-//		User user = new User();
-//		user.setName( request.getParameter("name") );
 		doGet(request, response);
 	}
 

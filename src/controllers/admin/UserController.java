@@ -2,6 +2,10 @@ package controllers.admin;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -99,6 +103,33 @@ public class UserController extends HttpServlet{
 		HttpServletRequest request,
 		HttpServletResponse response
 	) throws ServletException, IOException {
+		String idStr = request.getParameter("id");
+		int id = Integer.parseInt(idStr);
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String url = "jdbc:mysql://localhost:3306/j4_demo",
+				username = "root", password = "Aa@123456";
+			
+			Connection conn = DriverManager.getConnection(url, username, password);
+			String sql = "SELECT * FROM users WHERE id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			String name = rs.getString("name");
+			String email = rs.getString("email");
+			String pwd = rs.getString("password");
+			
+			System.out.println(name + " - " + email + " - " + pwd);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		request.setAttribute("view", "/views/admin/users/show.jsp");
 		request.getRequestDispatcher("/views/layout.jsp")
 		.forward(request, response);
