@@ -15,8 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.hibernate.Session;
 
+import dao.UserDAO;
 import entity.User;
+import utils.HibernateUtil;
 
 @WebServlet({
 	"/users/",
@@ -28,6 +31,14 @@ import entity.User;
 	"/users/delete"
 })
 public class UserController extends HttpServlet{
+	private UserDAO userDao;
+	
+	public UserController()
+	{
+		super();
+		this.userDao = new UserDAO();
+	}
+	
 	@Override
 	protected void doGet(
 		HttpServletRequest request,
@@ -106,30 +117,9 @@ public class UserController extends HttpServlet{
 		String idStr = request.getParameter("id");
 		int id = Integer.parseInt(idStr);
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			
-			String url = "jdbc:mysql://localhost:3306/j4_demo",
-				username = "root", password = "Aa@123456";
-			
-			Connection conn = DriverManager.getConnection(url, username, password);
-			String sql = "SELECT * FROM users WHERE id = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
-			
-			ResultSet rs = ps.executeQuery();
-			
-			rs.next();
-			String name = rs.getString("name");
-			String email = rs.getString("email");
-			String pwd = rs.getString("password");
-			
-			System.out.println(name + " - " + email + " - " + pwd);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		User user = this.userDao.findById(id);
+
+		request.setAttribute("user", user);
 		request.setAttribute("view", "/views/admin/users/show.jsp");
 		request.getRequestDispatcher("/views/layout.jsp")
 		.forward(request, response);
@@ -147,8 +137,8 @@ public class UserController extends HttpServlet{
 			e.printStackTrace();
 		}
 		
-		System.out.println("Họ Tên: " + user.getHoTen());
-		System.out.println("Email: " + user.getEmail());
-		System.out.println("Chuyên ngành: " + user.getChuyenNganh());
+//		System.out.println("Họ Tên: " + user.getHoTen());
+//		System.out.println("Email: " + user.getEmail());
+//		System.out.println("Chuyên ngành: " + user.getChuyenNganh());
 	}
 }

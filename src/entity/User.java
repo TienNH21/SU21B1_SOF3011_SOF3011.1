@@ -1,39 +1,61 @@
 package entity;
 
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="users")
 public class User {
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	private Integer id;
 	
-	private String hoTen;
+	@Column(name="name")
+	private String name;
 	
+	@Column(name="email")
 	private String email;
 
+	@Column(name="password")
 	private String password;
 
-	private Integer gioiTinh;
+	@Column(name="gender")
+	private Integer gender;
 	
-	private String chuyenNganh;
+	@Column(name="dob")
+	private Date dob;
 
+	@Column(name="avatar")
 	private String avatar;
 	
+	@Column(name="role")
 	private Integer role;
 	
-	private String ma;
+	@Column(name="status")
+	private Integer status;
 
-	public User() {
-	}
-
-	public User(int id, String hoTen, String email, String password, Integer gioiTinh, String chuyenNganh,
-			String avatar, Integer role, String ma) {
+	public User(int id, String name, String email, String password, Integer gender, Date dob, String avatar,
+			Integer role, Integer status) {
 		super();
 		this.id = id;
-		this.hoTen = hoTen;
+		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.gioiTinh = gioiTinh;
-		this.chuyenNganh = chuyenNganh;
+		this.gender = gender;
+		this.dob = dob;
 		this.avatar = avatar;
 		this.role = role;
-		this.ma = ma;
+		this.status = status;
+	}
+
+	public User() {
 	}
 
 	public int getId() {
@@ -44,12 +66,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getHoTen() {
-		return hoTen;
+	public String getName() {
+		return name;
 	}
 
-	public void setHoTen(String hoTen) {
-		this.hoTen = hoTen;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -68,20 +90,20 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getGioiTinh() {
-		return gioiTinh;
+	public Integer getGender() {
+		return gender;
 	}
 
-	public void setGioiTinh(Integer gioiTinh) {
-		this.gioiTinh = gioiTinh;
+	public void setGender(Integer gender) {
+		this.gender = gender;
 	}
 
-	public String getChuyenNganh() {
-		return chuyenNganh;
+	public Date getDob() {
+		return dob;
 	}
 
-	public void setChuyenNganh(String chuyenNganh) {
-		this.chuyenNganh = chuyenNganh;
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
 	public String getAvatar() {
@@ -100,11 +122,12 @@ public class User {
 		this.role = role;
 	}
 
-	public String getMa() {
-		return ma;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setMa(String ma) {
-		this.ma = ma;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
+
 }
