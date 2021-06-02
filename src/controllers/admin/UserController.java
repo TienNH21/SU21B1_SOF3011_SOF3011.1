@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -87,6 +88,9 @@ public class UserController extends HttpServlet{
 		HttpServletRequest request,
 		HttpServletResponse response
 	) throws ServletException, IOException {
+		List<User> listUser = this.userDao.getAll();
+		
+		request.setAttribute("listUser", listUser);
 		request.setAttribute("view", "/views/admin/users/index.jsp");
 		request.getRequestDispatcher("/views/layout.jsp")
 		.forward(request, response);
@@ -105,6 +109,12 @@ public class UserController extends HttpServlet{
 		HttpServletRequest request,
 		HttpServletResponse response
 	) throws ServletException, IOException {
+		String txtId = request.getAttribute("id").toString();
+		
+		int id = Integer.parseInt(txtId);
+		User user = this.userDao.findById(id);
+		
+		request.setAttribute("user", user);
 		request.setAttribute("view", "/views/admin/users/edit.jsp");
 		request.getRequestDispatcher("/views/layout.jsp")
 		.forward(request, response);
@@ -137,8 +147,10 @@ public class UserController extends HttpServlet{
 			e.printStackTrace();
 		}
 		
-//		System.out.println("Họ Tên: " + user.getHoTen());
-//		System.out.println("Email: " + user.getEmail());
-//		System.out.println("Chuyên ngành: " + user.getChuyenNganh());
+		this.userDao.store(user);
+		
+		response.sendRedirect(
+			request.getContextPath() + "/users/"
+		);
 	}
 }

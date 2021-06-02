@@ -4,13 +4,8 @@
 	<form method="POST"
 		action="${ pageContext.request.contextPath }/users/store">
 	  <div class="form-group">
-	    <label for="hoTen">Họ tên</label>
-	    <input type="text" class="form-control" id="hoTen" name="hoTen">
-	  </div>
-	  
-	  <div class="form-group">
-	    <label for="maSV">Mã SV</label>
-	    <input type="text" class="form-control" id="maSV" name="maSV">
+	    <label for="name">Họ tên</label>
+	    <input type="text" class="form-control" id="name" name="name">
 	  </div>
 	  
 	  <div class="form-group">
@@ -24,20 +19,16 @@
 	  </div>
 	  
 	  <div class="form-group">
-	    <label for="gioiTinh">Giới tính</label>
-		<select class="form-control" id="gioiTinh" name="gioiTinh">
+	    <label for="gender">Giới tính</label>
+		<select class="form-control" id="gender" name="gender">
 	      <option value="1">Nam</option>
 	      <option value="0">Nữ</option>
 	    </select>
 	  </div>
 	  
 	  <div class="form-group">
-	    <label for="chuyenNganh">Chuyên ngành</label>
-		<select class="form-control" id="chuyenNganh" name="chuyenNganh">
-	      <option value="1">UDPM</option>
-	      <option value="2">TKTW</option>
-	      <option value="3">LTMT</option>
-	    </select>
+	    <label for="avatar">Ngày sinh</label>
+	    <input type="date" class="form-control" id="dob" name="dob" />
 	  </div>
 	  
 	  <div class="form-group">
@@ -46,10 +37,18 @@
 	  </div>
 	  
 	  <div class="form-group">
-	    <label for="phanQuyen">Phân quyền</label>
-		<select class="form-control" id="phanQuyen" name="role">
+	    <label for="role">Phân quyền</label>
+		<select class="form-control" id="role" name="role">
 	      <option value="1">Sinh Viên</option>
 	      <option value="2">Giảng viên</option>
+	    </select>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="status">Trạng thái</label>
+		<select class="form-control" id="status" name="status">
+	      <option value="1">Đang hoạt động</option>
+	      <option value="2">Vô hiệu hóa</option>
 	    </select>
 	  </div>
 	  
