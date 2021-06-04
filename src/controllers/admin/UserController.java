@@ -80,7 +80,14 @@ public class UserController extends HttpServlet{
 			case "/store": {
 				this.store(request, response);
 			}
+			case "/update": {
+				this.update(request, response);
+			}
+			case "/delete": {
+				this.delete(request, response);
+			}
 			default:
+//				this.index(request, response);
 		}
 	}
 	
@@ -109,7 +116,7 @@ public class UserController extends HttpServlet{
 		HttpServletRequest request,
 		HttpServletResponse response
 	) throws ServletException, IOException {
-		String txtId = request.getAttribute("id").toString();
+		String txtId = request.getParameter("id").toString();
 		
 		int id = Integer.parseInt(txtId);
 		User user = this.userDao.findById(id);
@@ -152,5 +159,33 @@ public class UserController extends HttpServlet{
 		response.sendRedirect(
 			request.getContextPath() + "/users/"
 		);
+	}
+	
+	private void update(
+		HttpServletRequest request,
+		HttpServletResponse response
+	) throws IOException {
+		User entity = new User();
+		Map<String, String[]> requestData = request.getParameterMap();
+		
+		try {
+			BeanUtils.populate(entity, requestData);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		 this.userDao.update(entity);
+		 response.sendRedirect(request.getContextPath() + "/users/");
+	}
+
+	private void delete(
+		HttpServletRequest request,
+		HttpServletResponse response
+	) throws IOException {
+		String idStr = request.getParameter("id");
+		int id = Integer.parseInt(idStr);
+		User entity = this.userDao.findById(id);
+		this.userDao.delete(entity);
+		response.sendRedirect(request.getContextPath() + "/users/");
 	}
 }

@@ -9,7 +9,7 @@
 		</div>
 		<div class="col-6"></div>
 	</div>
-	<table class="table table-dark table-strip mt-3">
+	<table class="table table-strip mt-3">
 		<thead>
 			<tr>
 				<td>ID</td>
@@ -37,7 +37,29 @@
 						href="${ pageContext.request.contextPath }/users/edit?id=${ user.id }">Update</a>
 				</td>
 				<td>
-					<button class="btn btn-danger">Delete</button>
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_confirm_${ user.id }">Delete</button>
+					<div class="modal fade" id="delete_confirm_${ user.id }" tabindex="-1" role="dialog" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">Delete Confirm</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        Xác nhận xóa người dùng ${ user.name } ?
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+					        <form method="POST" action="${ pageContext.request.contextPath }/users/delete" >
+					        	<input type="hidden" name="id" value="${ user.id }"/>
+					        	<button type="submit" class="btn btn-danger">Xóa</button>
+					        </form>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 				</td>
 			</tr>
 			</c:forEach>

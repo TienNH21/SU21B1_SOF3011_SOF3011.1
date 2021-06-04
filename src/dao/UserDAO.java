@@ -41,4 +41,33 @@ public class UserDAO extends BaseDAO {
 			return null;
 		}
 	}
+	
+	public boolean update(User entity) {
+		try {
+			this.hSession.beginTransaction();
+			
+			this.hSession.merge(entity);
+			
+			this.hSession.getTransaction().commit();
+		} catch (Exception e) {
+			this.hSession.getTransaction().rollback();
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean delete(User entity) {
+		try {
+			this.hSession.beginTransaction();
+			this.hSession.remove(entity);
+			this.hSession.flush();
+			this.hSession.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			this.hSession.getTransaction().rollback();
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
