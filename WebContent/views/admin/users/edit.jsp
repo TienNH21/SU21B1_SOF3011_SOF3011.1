@@ -15,7 +15,7 @@
 	  
 	  <div class="form-group">
 	    <label for="password">Password</label>
-	    <input type="password" class="form-control" value="${ user.password }" id="password" name="password">
+	    <input type="password" class="form-control" value="${ user.password }" id="password" name="password" disabled>
 	  </div>
 	  
 	  <div class="form-group">

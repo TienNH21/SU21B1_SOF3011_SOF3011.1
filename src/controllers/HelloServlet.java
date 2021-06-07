@@ -13,7 +13,6 @@ import entity.User;
 
 @MultipartConfig()
 @WebServlet({
-	"/login",
 	"/hello-upload"
 })
 public class HelloServlet extends HttpServlet {

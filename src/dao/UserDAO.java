@@ -3,8 +3,10 @@ package dao;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import entity.User;
+import utils.HashUtil;
 import utils.HibernateUtil;
 
 public class UserDAO extends BaseDAO {
@@ -69,5 +71,19 @@ public class UserDAO extends BaseDAO {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public User login(String email, String password)
+	{
+		TypedQuery<User> query = this.hSession.createNamedQuery("User.findByEmail", User.class);
+		query.setParameter("email", email);
+		User entity = query.getSingleResult();
+
+		boolean checkPwd = HashUtil.verify(password, entity.getPassword());
+		if (checkPwd == false) {
+			return null;
+		}
+		
+		return entity;
 	}
 }

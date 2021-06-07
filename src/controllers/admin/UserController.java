@@ -20,6 +20,7 @@ import org.hibernate.Session;
 
 import dao.UserDAO;
 import entity.User;
+import utils.HashUtil;
 import utils.HibernateUtil;
 
 @WebServlet({
@@ -79,15 +80,19 @@ public class UserController extends HttpServlet{
 		switch (uriPath) {
 			case "/store": {
 				this.store(request, response);
+				break;
 			}
 			case "/update": {
 				this.update(request, response);
+				break;
 			}
 			case "/delete": {
 				this.delete(request, response);
+				break;
 			}
 			default:
-//				this.index(request, response);
+				this.index(request, response);
+				break;
 		}
 	}
 	
@@ -154,6 +159,8 @@ public class UserController extends HttpServlet{
 			e.printStackTrace();
 		}
 		
+		String hashedPassword = HashUtil.hash( request.getParameter("password") );
+		user.setPassword(hashedPassword);
 		this.userDao.store(user);
 		
 		response.sendRedirect(
@@ -167,13 +174,12 @@ public class UserController extends HttpServlet{
 	) throws IOException {
 		User entity = new User();
 		Map<String, String[]> requestData = request.getParameterMap();
-		
 		try {
 			BeanUtils.populate(entity, requestData);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		 this.userDao.update(entity);
 		 response.sendRedirect(request.getContextPath() + "/users/");
 	}
