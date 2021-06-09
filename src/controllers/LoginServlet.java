@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
 import entity.User;
@@ -46,7 +47,9 @@ public class LoginServlet extends HttpServlet {
 			String location = request.getContextPath() + "/login";
 			response.sendRedirect(location);
 		} else {
-			response.sendRedirect(request.getContextPath() + "/users/");
+			HttpSession session = request.getSession();
+			session.setAttribute("user", entity);
+			response.sendRedirect(request.getContextPath() + "/admin/users/");
 		}
 	}
 }

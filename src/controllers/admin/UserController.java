@@ -24,13 +24,13 @@ import utils.HashUtil;
 import utils.HibernateUtil;
 
 @WebServlet({
-	"/users/",
-	"/users/show",
-	"/users/create",
-	"/users/store",
-	"/users/edit",
-	"/users/update",
-	"/users/delete"
+	"/admin/users/",
+	"/admin/users/show",
+	"/admin/users/create",
+	"/admin/users/store",
+	"/admin/users/edit",
+	"/admin/users/update",
+	"/admin/users/delete"
 })
 public class UserController extends HttpServlet{
 	private UserDAO userDao;
